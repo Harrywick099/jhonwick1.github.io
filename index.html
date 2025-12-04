@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #101010;
+            font-family: Poppins, sans-serif;
+        }
+
+        .clock {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: #fff;
+            border: 10px solid #222;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .center {
+            width: 14px;
+            height: 14px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .hand {
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: black;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+        }
+
+        #hours {
+            height: 5px;
+            width: 35%;
+            background: #000;
+        }
+
+        #minutes {
+            height: 4px;
+            width: 45%;
+            background: #444;
+        }
+
+        #seconds {
+            height: 2px;
+            width: 48%;
+            background: red;
+        }
+
+        /* Numbers */
+        .number {
+            position: absolute;
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .num12 { top: 10px; left: 50%; transform: translateX(-50%); }
+        .num3  { right: 10px; top: 50%; transform: translateY(-50%); }
+        .num6  { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .num9  { left: 10px; top: 50%; transform: translateY(-50%); }
+
+    </style>
+</head>
+<body>
+
+    <div class="clock">
+        <div class="number num12">12</div>
+        <div class="number num3">3</div>
+        <div class="number num6">6</div>
+        <div class="number num9">9</div>
+
+        <div id="hours" class="hand"></div>
+        <div id="minutes" class="hand"></div>
+        <div id="seconds" class="hand"></div>
+        <div class="center"></div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function clockRotation() {
+            setInterval(function () {
+
+                var date = new Date();
+
+                var seconds = date.getSeconds();
+                var minutes = date.getMinutes();
+                var hours = date.getHours();
+
+                var secondsRotation = seconds * 6;
+                var minutesRotation = minutes * 6;
+                var hoursRotation = hours * 30 + minutes / 2;
+
+                $("#seconds").css({
+                    "transform": "rotate(" + secondsRotation + "deg)"
+                });
+
+                $("#minutes").css({
+                    "transform": "rotate(" + minutesRotation + "deg)"
+                });
+
+                $("#hours").css({
+                    "transform": "rotate(" + hoursRotation + "deg)"
+                });
+
+            }, 1000);
+        }
+
+        clockRotation();
+    </script>
+
+</body>
+</html>
